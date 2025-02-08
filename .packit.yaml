@@ -1,0 +1,14 @@
+# https://packit.dev/docs/configuration/
+specfile_path: phoc.spec
+files_to_sync:
+  - phoc.spec
+  - .packit.yaml
+upstream_package_name: phoc
+downstream_package_name: phoc
+jobs:
+  # Build main commits in samcday/phosh-nightly COPR
+  - job: copr_build
+    trigger: commit
+    branch: main
+    owner: samcday
+    project: phosh-nightly

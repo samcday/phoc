@@ -997,13 +997,9 @@ phoc_test_xdg_update_buffer (PhocTestClientGlobals      *globals,
 void
 phoc_test_setup (PhocTestFixture *fixture, gconstpointer data)
 {
-  const char *display;
   g_autoptr (GError) err = NULL;
 
   fixture->bus = g_test_dbus_new (G_TEST_DBUS_NONE);
-
-  /* Preserve x11 display for xvfb-run */
-  display = g_getenv ("DISPLAY");
 
   g_test_dbus_up (fixture->bus);
 
@@ -1013,8 +1009,7 @@ phoc_test_setup (PhocTestFixture *fixture, gconstpointer data)
   g_assert_no_error (err);
 
   g_setenv ("XDG_RUNTIME_DIR", fixture->tmpdir, TRUE);
-  g_setenv ("DISPLAY", display, TRUE);
-  g_setenv ("WLR_BACKENDS", "x11", TRUE);
+  g_setenv ("WLR_BACKENDS", "headless", TRUE);
 }
 
 static void
@@ -1057,17 +1052,11 @@ phoc_test_remove_tree (GFile *file)
 void
 phoc_test_teardown (PhocTestFixture *fixture, gconstpointer unused)
 {
-  const char *display;
-
   g_autoptr (GFile) file = g_file_new_for_path (fixture->tmpdir);
-
-  /* Preserve x11 display for xvfb-run */
-  display = g_getenv ("DISPLAY");
 
   g_test_dbus_down (fixture->bus);
   g_clear_object (&fixture->bus);
 
-  g_setenv ("DISPLAY", display, TRUE);
   phoc_test_remove_tree (file);
   g_free (fixture->tmpdir);
 }

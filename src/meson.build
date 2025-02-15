@@ -165,11 +165,32 @@ if have_xwayland
   phoc_deps += dependency('xcb')
 endif
 
+spinner_sprite = custom_target('spinner-sprite',
+                               output : 'spinner.png',
+                               input : 'spinner.png',
+                               command : ['cp', '@INPUT@', '@OUTPUT@' ],
+)
+
+ld = find_program('ld')
+spinner_sprite_obj = custom_target('spinner-obj',
+                                   output : 'spinner-sprite.o',
+                                   input : spinner_sprite,
+                                   command : [ld,
+                                              '--relocatable',
+                                              '--format',
+                                              'binary',
+                                              '--output',
+                                              '@OUTPUT@',
+                                              '@INPUT@',
+                                   ],
+)
+
 phoc_lib = both_libraries(
   'phoc',
   sources,
   libphoc_generated_sources,
   libphoc_generated_headers,
+  spinner_sprite_obj,
   include_directories: phoc_anim_inc,
   dependencies: phoc_deps,
   install: false,

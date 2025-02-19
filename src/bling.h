@@ -70,4 +70,6 @@ void                    phoc_bling_map                           (PhocBling    *
 void                    phoc_bling_unmap                         (PhocBling    *self);
 gboolean                phoc_bling_is_mapped                     (PhocBling    *self);
 
+void                    phoc_bling_damage_box                    (PhocBling    *bling);
+
 G_END_DECLS

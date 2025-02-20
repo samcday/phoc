@@ -1,6 +1,6 @@
 Name:		phoc
-Version:	0.45~rc1
-Release:	%{autorelease}
+Version:	0.45.0
+Release:	1%{?dist}
 Summary:	Display compositor designed for phones
 
 License:	GPL-3.0-or-later
@@ -69,5 +69,3 @@ HERE
 %{_datadir}/applications/mobi.phosh.Phoc.desktop
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Phoc.svg
 
-%changelog
-%autochangelog

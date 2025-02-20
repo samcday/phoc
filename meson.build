@@ -1,5 +1,5 @@
 project('phoc', 'c',
-          version: '0.45.rc1',
+          version: '0.45.0',
           license: 'GPLv3+',
     meson_version: '>= 0.63.0',
   default_options: [
@@ -28,7 +28,7 @@ pkgdatadir = prefix / datadir / meson.project_name()
 
 cc = meson.get_compiler('c')
 
-glib_ver = '2.70'
+glib_ver = '2.80'
 glib_ver_str = 'GLIB_VERSION_@0@'.format(glib_ver.replace('.','_'))
 glib_ver_cmp = '>=@0@'.format(glib_ver)
 
@@ -62,7 +62,7 @@ if not embed_wlroots.disabled()
   # Try first to find wlroots as a subproject, then as a system dependency
   wlroots_proj = subproject(
     'wlroots',
-    default_options: ['examples=false', 'renderers=gles2'],
+    default_options: ['examples=false', 'renderers=gles2,vulkan'],
     required: false,
   )
 
